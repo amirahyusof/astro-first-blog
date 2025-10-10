@@ -1,0 +1,61 @@
+---
+
+const currentYear = new Date().getFullYear();
+
+---
+
+<footer>
+  <div class="container">
+     <p>© {currentYear} My First Blog. Built with ❤️ and Astro.</p>
+     <p>By Amirah Yusof</p>
+     
+     <div class="social-links">
+        <a href="https://threads.com/yourprofile" target="_blank" rel="noopener noreferrer">
+          Threads
+        </a> |
+        <a href="https://github.com/yourprofile" target="_blank" rel="noopener noreferrer">
+          GitHub
+        </a> |
+        <a href="mailto:hello@example.com" target="_blank" rel="noopener noreferrer">
+          Email
+        </a>
+     </div>
+  </div>
+</footer>
+
+
+<style>
+  footer {
+    background-color: var(--card-bg);
+    border-top: 1px solid var(--border-color);
+    padding: 2rem 0;
+    margin-top: 4rem;
+  }
+  
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    text-align: center;
+  }
+  
+  footer p {
+    color: var(--secondary-text);
+  }
+  
+  .social-links {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+  
+  .social-links a {
+    color: var(--secondary-text);
+    transition: color 0.2s;
+  }
+  
+  .social-links a:hover {
+    color: var(--accent-color);
+  }
+</style>

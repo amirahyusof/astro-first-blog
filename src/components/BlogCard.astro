@@ -1,0 +1,106 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  date: string;
+  tags?: string[];
+  slug: string;
+}
+
+const { title, description, date, tags = [], slug } = Astro.props;
+const formattedDate = new Date(date).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+
+---
+
+<article class="blog-card">
+  <a href={`/blog/${slug}`} class="card-link">
+    <div class="card-content">
+      <h2>{title}</h2>
+      <p class="description">{description}</p>
+
+      <div class="card-footer">
+        <time datetime={date}>{formattedDate}</time>
+        {tags.length > 0 && (
+          <div class="tags">
+            {tags.map(tag => (
+              <span class="tag">{tag}</span>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  </a>
+ 
+</article>
+
+<style>
+  .blog-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .blog-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  
+  .card-content {
+    padding: 1.5rem;
+  }
+
+  h2 {
+    margin-bottom: 0.75rem;
+    font-size: 1.5rem;
+    color: var(--text-color);
+  }
+  
+  .description {
+    color: var(--secondary-text);
+    margin-bottom: 1rem;
+    list-style: 1.6;
+  }
+  
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  
+  time {
+    display: flex;
+    gap:0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+</style>

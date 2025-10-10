@@ -1,0 +1,90 @@
+---
+import ThemeToggle from '../components/ThemeToggle.jsx';
+
+// Get current path to highlight active link
+const currentPath = Astro.url.pathname;
+---
+
+<header>
+  <div class="container">
+    <div class="logo">
+      <a href="/">
+        <span class="logo-icon">✨</span>
+        <span class="logo-text">My Blog</span>
+      </a>
+    </div>
+    
+    <nav>
+      <a href="/" class={currentPath === '/' ? 'active' : ''}>
+        Home
+      </a>
+      <a href="/about" class={currentPath === '/about' ? 'active' : ''}>
+        About
+      </a>
+      <ThemeToggle client:load />
+    </nav>
+  </div>
+</header>
+
+<style>
+  header {
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+  }
+  
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-color);
+    text-decoration: none;
+  }
+  
+  .logo-icon {
+    font-size: 1.75rem;
+  }
+  
+  nav {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
+  
+  nav a {
+    color: var(--secondary-text);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  
+  nav a:hover,
+  nav a.active {
+    color: var(--accent-color);
+  }
+  
+  @media (max-width: 600px) {
+    nav {
+      gap: 1rem;
+    }
+    
+    .logo-text {
+      display: none;
+    }
+  }
+</style>
