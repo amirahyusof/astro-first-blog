@@ -1,6 +1,7 @@
 ---
 // src/pages/blog/[slug].astro
 import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
+import { marked } from 'marked';
 
 // This function tells Astro which paths to generate at build time
 export async function getStaticPaths() {
@@ -13,49 +14,50 @@ export async function getStaticPaths() {
       description: 'Learn the basics of Astro and why it\'s great for building fast websites.',
       date: '2025-09-20',
       tags: ['Astro', 'Web Development', 'Tutorial'],
-      content: `
-## Why Astro?
-
-Astro is a modern static site generator that focuses on performance. Unlike traditional JavaScript frameworks, Astro ships **zero JavaScript by default**, making your sites incredibly fast.
-
-### Key Features
-
-- **Island Architecture**: Add interactivity only where needed
-- **Framework Agnostic**: Use React, Vue, Svelte, or none at all
-- **Content Collections**: Built-in support for organizing content
-- **Optimized by Default**: Automatic image optimization, CSS bundling, etc.
-
-## Getting Started
-
-To create a new Astro project:
-
-\`\`\`bash
-npm create astro@latest my-project
-cd my-project
-npm run dev
-\`\`\`
-
-### Your First Component
-
-Here's a simple Astro component:
-
-\`\`\`astro
----
-const greeting = "Hello, Astro!";
----
-
-<div>
-  <h1>{greeting}</h1>
-  <p>This is my first component.</p>
-</div>
-\`\`\`
-
-> The section between the \`---\` markers is called the frontmatter. It runs on the server at build time.
-
-## What's Next?
-
-Now that you understand the basics, try building something! Start with a simple landing page or a personal portfolio.
+      content: 
       `
+        ##Why Astro?
+
+        Astro is a modern static site generator that focuses on performance. Unlike traditional JavaScript frameworks, Astro ships **zero JavaScript by default**, making your sites incredibly fast.
+
+        ### Key Features
+
+        - **Island Architecture**: Add interactivity only where needed
+        - **Framework Agnostic**: Use React, Vue, Svelte, or none at all
+        - **Content Collections**: Built-in support for organizing content
+        - **Optimized by Default**: Automatic image optimization, CSS bundling, etc.
+
+        ## Getting Started
+
+        To create a new Astro project:
+
+        \`\`\`bash
+        npm create astro@latest my-project
+        cd my-project
+        npm run dev
+        \`\`\`
+
+        ### Your First Component
+
+        Here's a simple Astro component:
+
+        \`\`\`astro
+        ---
+        const greeting = "Hello, Astro!";
+        ---
+
+        <div>
+          <h1>{greeting}</h1>
+          <p>This is my first component.</p>
+        </div>
+        \`\`\`
+
+        > The section between the \`---\` markers is called the frontmatter. It runs on the server at build time.
+
+        ## What's Next?
+
+        Now that you understand the basics, try building something! Start with a simple landing page or a personal portfolio.
+        `
     },
     {
       slug: 'understanding-astro-islands',
@@ -63,67 +65,68 @@ Now that you understand the basics, try building something! Start with a simple 
       description: 'Deep dive into Astro\'s island architecture and how it makes your site blazing fast.',
       date: '2024-01-20',
       tags: ['Astro', 'Performance', 'Architecture'],
-      content: `
-## What are Islands?
+      content: 
+      `
+        ## What are Islands?
 
-The **Islands Architecture** is a paradigm where you have a sea of static HTML with "islands" of interactivity. This is Astro's killer feature!
+        The **Islands Architecture** is a paradigm where you have a sea of static HTML with "islands" of interactivity. This is Astro's killer feature!
 
-### Traditional SPAs vs Islands
+        ### Traditional SPAs vs Islands
 
-**Traditional Single Page Apps (SPAs):**
-- Ship entire framework to the browser
-- Everything is JavaScript
-- Slower initial load
-- Higher bundle sizes
+        **Traditional Single Page Apps (SPAs):**
+        - Ship entire framework to the browser
+        - Everything is JavaScript
+        - Slower initial load
+        - Higher bundle sizes
 
-**Astro Islands:**
-- Ship mostly static HTML
-- JavaScript only for interactive components
-- Blazing fast initial load
-- Minimal bundle sizes
+        **Astro Islands:**
+        - Ship mostly static HTML
+        - JavaScript only for interactive components
+        - Blazing fast initial load
+        - Minimal bundle sizes
 
-## How Islands Work
+        ## How Islands Work
 
-By default, every component in Astro is **static**. It renders to HTML at build time with no JavaScript.
+        By default, every component in Astro is **static**. It renders to HTML at build time with no JavaScript.
 
-\`\`\`astro
-<Header />  <!-- Static, no JS -->
-<Counter client:load />  <!-- Interactive! -->
-<Footer />  <!-- Static, no JS -->
-\`\`\`
+        \`\`\`astro
+        <Header />  <!-- Static, no JS -->
+        <Counter client:load />  <!-- Interactive! -->
+        <Footer />  <!-- Static, no JS -->
+        \`\`\`
 
-### Client Directives
+        ### Client Directives
 
-Astro provides several directives to control when JavaScript loads:
+        Astro provides several directives to control when JavaScript loads:
 
-1. **client:load** - Load immediately on page load
-2. **client:idle** - Load when browser is idle
-3. **client:visible** - Load when element is visible
-4. **client:media** - Load based on media query
+        1. **client:load** - Load immediately on page load
+        2. **client:idle** - Load when browser is idle
+        3. **client:visible** - Load when element is visible
+        4. **client:media** - Load based on media query
 
-Example:
+        Example:
 
-\`\`\`astro
-<ChatWidget client:visible />
-\`\`\`
+        \`\`\`astro
+        <ChatWidget client:visible />
+        \`\`\`
 
-This only loads the JavaScript when the user scrolls to the chat widget!
+        This only loads the JavaScript when the user scrolls to the chat widget!
 
-## Performance Benefits
+        ## Performance Benefits
 
-- **Faster Page Loads**: Less JavaScript means faster initial paint
-- **Better SEO**: Search engines see real HTML content
-- **Lower Bandwidth**: Users download only what they need
-- **Improved Accessibility**: Content works without JavaScript
+        - **Faster Page Loads**: Less JavaScript means faster initial paint
+        - **Better SEO**: Search engines see real HTML content
+        - **Lower Bandwidth**: Users download only what they need
+        - **Improved Accessibility**: Content works without JavaScript
 
-## Best Practices
+        ## Best Practices
 
-1. Keep most of your site static
-2. Add interactivity strategically
-3. Use \`client:visible\` for below-the-fold content
-4. Prefer \`client:idle\` over \`client:load\` when possible
+        1. Keep most of your site static
+        2. Add interactivity strategically
+        3. Use \`client:visible\` for below-the-fold content
+        4. Prefer \`client:idle\` over \`client:load\` when possible
 
-The island architecture is why Astro sites consistently score 100 on Lighthouse!
+        The island architecture is why Astro sites consistently score 100 on Lighthouse!
       `
     },
     {
@@ -132,108 +135,109 @@ The island architecture is why Astro sites consistently score 100 on Lighthouse!
       description: 'Step-by-step guide to creating your own blog using Astro and Markdown.',
       date: '2024-01-25',
       tags: ['Astro', 'Tutorial', 'Blog'],
-      content: `
-## Why Use Astro for Blogging?
+      content: 
+      `
+        ## Why Use Astro for Blogging?
 
-Astro is perfect for blogs because:
+        Astro is perfect for blogs because:
 
-- **Fast by Default**: Your readers get instant page loads
-- **Markdown Support**: Write in Markdown, get beautiful HTML
-- **Content Collections**: Organize and type-safe your content
-- **SEO Friendly**: Real HTML with meta tags and structured data
+        - **Fast by Default**: Your readers get instant page loads
+        - **Markdown Support**: Write in Markdown, get beautiful HTML
+        - **Content Collections**: Organize and type-safe your content
+        - **SEO Friendly**: Real HTML with meta tags and structured data
 
-## Project Structure
+        ## Project Structure
 
-Here's how to organize your blog:
+        Here's how to organize your blog:
 
-\`\`\`
-src/
-  components/
-    BlogCard.astro
-    Header.astro
-  layouts/
-    BaseLayout.astro
-    BlogPostLayout.astro
-  pages/
-    index.astro
-    blog/
-      [slug].astro
-  content/
-    blog/
-      post-1.md
-      post-2.md
-\`\`\`
+        \`\`\`
+        src/
+          components/
+            BlogCard.astro
+            Header.astro
+          layouts/
+            BaseLayout.astro
+            BlogPostLayout.astro
+          pages/
+            index.astro
+            blog/
+              [slug].astro
+          content/
+            blog/
+              post-1.md
+              post-2.md
+        \`\`\`
 
-## Creating Blog Posts
+        ## Creating Blog Posts
 
-Write your posts in Markdown with frontmatter:
+        Write your posts in Markdown with frontmatter:
 
-\`\`\`markdown
----
-title: "My First Post"
-date: "2024-01-15"
-description: "This is my first blog post!"
-tags: ["Hello", "World"]
----
+        \`\`\`markdown
+        ---
+        title: "My First Post"
+        date: "2024-01-15"
+        description: "This is my first blog post!"
+        tags: ["Hello", "World"]
+        ---
 
-## Hello World
+        ## Hello World
 
-This is the content of my post!
-\`\`\`
+        This is the content of my post!
+        \`\`\`
 
-## Dynamic Routes
+        ## Dynamic Routes
 
-Use \`[slug].astro\` to create dynamic routes:
+        Use \`[slug].astro\` to create dynamic routes:
 
-\`\`\`astro
----
-export function getStaticPaths() {
-  const posts = await getCollection('blog');
-  return posts.map(post => ({
-    params: { slug: post.slug },
-    props: { post }
-  }));
-}
----
-\`\`\`
+        \`\`\`astro
+        ---
+        export function getStaticPaths() {
+          const posts = await getCollection('blog');
+          return posts.map(post => ({
+            params: { slug: post.slug },
+            props: { post }
+          }));
+        }
+        ---
+        \`\`\`
 
-## Adding Features
+        ## Adding Features
 
-### Reading Time
-Calculate reading time from word count:
+        ### Reading Time
+        Calculate reading time from word count:
 
-\`\`\`javascript
-const wordCount = content.split(/\\s+/).length;
-const readingTime = Math.ceil(wordCount / 200);
-\`\`\`
+        \`\`\`javascript
+        const wordCount = content.split(/\\s+/).length;
+        const readingTime = Math.ceil(wordCount / 200);
+        \`\`\`
 
-### Tags
-Create a tag system to categorize posts:
+        ### Tags
+        Create a tag system to categorize posts:
 
-\`\`\`astro
-<div class="tags">
-  {tags.map(tag => (
-    <span class="tag">{tag}</span>
-  ))}
-</div>
-\`\`\`
+        \`\`\`astro
+        <div class="tags">
+          {tags.map(tag => (
+            <span class="tag">{tag}</span>
+          ))}
+        </div>
+        \`\`\`
 
-### Search
-Add client-side search with a React component:
+        ### Search
+        Add client-side search with a React component:
 
-\`\`\`jsx
-<SearchBox client:load posts={allPosts} />
-\`\`\`
+        \`\`\`jsx
+        <SearchBox client:load posts={allPosts} />
+        \`\`\`
 
-## Deployment
+        ## Deployment
 
-Deploy your blog to Netlify, Vercel, or any static host:
+        Deploy your blog to Netlify, Vercel, or any static host:
 
-\`\`\`bash
-npm run build
-\`\`\`
+        \`\`\`bash
+        npm run build
+        \`\`\`
 
-Your blog is now ready to share with the world! 🎉
+        Your blog is now ready to share with the world! 🎉
       `
     }
   ];
@@ -246,6 +250,9 @@ Your blog is now ready to share with the world! 🎉
 
 // Get the post data from props
 const { post } = Astro.props;
+
+//convert markdown string to HTML
+const htmlContent = marked.parse(post.content);
 ---
 
 <BlogPostLayout
@@ -254,5 +261,5 @@ const { post } = Astro.props;
   date={post.date}
   tags={post.tags}
 >
-  <div set:html={post.content} />
+  <article class="prose prose-lg dark:prose-invert max-w-none" set:html={htmlContent} />
 </BlogPostLayout>
